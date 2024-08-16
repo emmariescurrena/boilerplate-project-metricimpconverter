@@ -6,7 +6,8 @@ const server = require('../server');
 chai.use(chaiHttp);
 
 suite('Functional Tests', function () {
-    test("Convert 10L", () => {
+    test("Convert 10L", (done) => {
+        console.log("First passed")
         chai
             .request(server)
             .get("/api/convert")
@@ -17,10 +18,11 @@ suite('Functional Tests', function () {
                 assert.equal(res.body.initUnit, "L");
                 assert.approximately(Number(res.body.returnNum), 2.64172, 0.00001);
                 assert.equal(res.body.returnUnit, "gal");
+                done();
             });
     });
 
-    test("Convert 32g", () => {
+    test("Convert 32g", (done) => {
         chai
             .request(server)
             .get("/api/convert")
@@ -28,10 +30,11 @@ suite('Functional Tests', function () {
             .end((err, res) => {
                 assert.equal(res.status, 200);
                 assert.equal(res.body.initUnit, undefined);
+                done();
             });
     });
 
-    test("Convert 3/7.2/4kg", () => {
+    test("Convert 3/7.2/4kg", (done) => {
         chai
             .request(server)
             .get("/api/convert")
@@ -39,10 +42,11 @@ suite('Functional Tests', function () {
             .end((err, res) => {
                 assert.equal(res.status, 200);
                 assert.equal(res.body.initNum, undefined);
+                done();
             });
     });
 
-    test("Convert 3/7.2/4kilomegagram", () => {
+    test("Convert 3/7.2/4kilomegagram", (done) => {
         chai
             .request(server)
             .get("/api/convert")
@@ -50,10 +54,12 @@ suite('Functional Tests', function () {
             .end((err, res) => {
                 assert.equal(res.status, 200);
                 assert.equal(res.body.initNum, undefined);
+                assert.equal(res.body.initUnit, undefined);
+                done();
             });
     });
 
-    test("Convert kg", () => {
+    test("Convert kg", (done) => {
         chai
             .request(server)
             .get("/api/convert")
@@ -64,6 +70,7 @@ suite('Functional Tests', function () {
                 assert.equal(res.body.initUnit, "kg");
                 assert.approximately(Number(res.body.returnNum), 2.20462, 0.00001);
                 assert.equal(res.body.returnUnit, "lbs");
+                done();
             });
     });
 });

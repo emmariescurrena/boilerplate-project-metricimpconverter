@@ -13,11 +13,12 @@ function ConvertHandler() {
                 break;
             }
         };
-        if (result.match(/^\d+(\.\d+)?\/\d+$/mg)) {
+        if (result.match(/^\d+(\.\d+)?\/\d+(\.\d+)?$/mg)) {
             const dividerIndex = result.indexOf("/");
-            return result.substring(0, dividerIndex) / result.substring(dividerIndex + 1);
+            return Number(parseFloat(result.substring(0, dividerIndex)) /
+                parseFloat(result.substring(dividerIndex + 1)));
         } else if (result.match(/^\d+(\.\d+)?$/mg)) {
-            return result;
+            return Number(result);
         } else {
             return 'invalid number';
         }
@@ -101,7 +102,7 @@ function ConvertHandler() {
                 result = initNum / miToKm;
                 break;
         }
-        return result.toFixed(5)
+        return Number(result.toFixed(5));
     };
 
     this.getString = function (initNum, initUnit, returnNum, returnUnit) {
