@@ -7,7 +7,6 @@ chai.use(chaiHttp);
 
 suite('Functional Tests', function () {
     test("Convert 10L", (done) => {
-        console.log("First passed")
         chai
             .request(server)
             .get("/api/convert")
